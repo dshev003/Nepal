@@ -1,0 +1,29 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Nepal-Conflict-and-Elections
+
+<!-- badges: start -->
+
+<!-- badges: end -->
+
+## The data
+
+Here is some data:
+
+```{r}
+library(tidyverse)
+
+df = read.csv("electionstats.csv")
+head(df)
+```
