@@ -7,7 +7,9 @@ output: github_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
 )
 ```
 
@@ -24,6 +26,25 @@ Here is some data:
 ```{r}
 library(tidyverse)
 
-df = read.csv("electionstats.csv")
+df = read.csv("nepalelection.csv")
 head(df)
 ```
+
+
+
+## Descriptive statistics
+
+
+```{r}
+avgage = mean(df$winnerage)
+head(avgage)
+```
+## Plots
+
+```{r}
+ggplot(df, aes(maoist, winnerage, colour = winnergender)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE)
+```
+
+
