@@ -6,47 +6,43 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
+## Introduction
+
+Nepal is a very interesting country.
+
 ## The data
 
-Here is some data:
+Here is the data on blah:
 
 ``` r
 library(tidyverse)
+library(kableExtra)
 
 df = read.csv("nepalelection.csv")
-head(df)
-#>   districtname constnum      constname maoist   uml nepalicongress turnout
-#> 1       Achham        1       Achham 1  29.04 38.86          25.98   54.53
-#> 2       Achham        2       Achham 2  32.35 27.04          21.00   52.82
-#> 3 Arghakhanchi        1 Arghakhanchi 1  35.54 19.85          21.64   55.34
-#> 4 Arghakhanchi        2 Arghakhanchi 2  25.44 29.48          33.72   52.05
-#> 5      Baglung        1      Baglung 1  30.47 27.92          24.72   60.01
-#> 6      Baglung        2      Baglung 2  19.98  8.56          27.38   55.29
-#>   candidate_avgage winnerage per_femalecandidates per_malecandidates
-#> 1            40.57        40                 0.00             100.00
-#> 2            45.50        32                 0.00             100.00
-#> 3            44.75        46                12.50              87.50
-#> 4            44.33        46                16.67              83.33
-#> 5            46.70        48                10.00              90.00
-#> 6            47.00        66                10.00              90.00
-#>   winnergender
-#> 1            M
-#> 2            M
-#> 3            M
-#> 4            F
-#> 5            M
-#> 6            M
+kable(head(df))
 ```
+
+| districtname | constnum | constname      | maoist |   uml | nepalicongress | turnout | candidate_avgage | winnerage | per_femalecandidates | per_malecandidates | winnergender |
+|:-------------|---------:|:---------------|-------:|------:|---------------:|--------:|-----------------:|----------:|---------------------:|-------------------:|:-------------|
+| Achham       |        1 | Achham 1       |  29.04 | 38.86 |          25.98 |   54.53 |            40.57 |        40 |                 0.00 |             100.00 | M            |
+| Achham       |        2 | Achham 2       |  32.35 | 27.04 |          21.00 |   52.82 |            45.50 |        32 |                 0.00 |             100.00 | M            |
+| Arghakhanchi |        1 | Arghakhanchi 1 |  35.54 | 19.85 |          21.64 |   55.34 |            44.75 |        46 |                12.50 |              87.50 | M            |
+| Arghakhanchi |        2 | Arghakhanchi 2 |  25.44 | 29.48 |          33.72 |   52.05 |            44.33 |        46 |                16.67 |              83.33 | F            |
+| Baglung      |        1 | Baglung 1      |  30.47 | 27.92 |          24.72 |   60.01 |            46.70 |        48 |                10.00 |              90.00 | M            |
+| Baglung      |        2 | Baglung 2      |  19.98 |  8.56 |          27.38 |   55.29 |            47.00 |        66 |                10.00 |              90.00 | M            |
 
 ## Descriptive statistics
 
+With this data, we can see what the average blah is:
+
 ``` r
-avgage = mean(df$winnerage)
-head(avgage)
+mean(df$winnerage)
 #> [1] 43.725
 ```
 
 ## Plots
+
+We could also visualize blah:
 
 ``` r
 ggplot(df, aes(maoist, winnerage, colour = winnergender)) + 

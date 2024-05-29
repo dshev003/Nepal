@@ -19,15 +19,22 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
+
+## Introduction
+
+Nepal is a very interesting country.
+
+
 ## The data
 
-Here is some data:
+Here is the data on blah:
 
 ```{r}
 library(tidyverse)
+library(kableExtra)
 
 df = read.csv("nepalelection.csv")
-head(df)
+kable(head(df))
 ```
 
 
@@ -35,11 +42,16 @@ head(df)
 ## Descriptive statistics
 
 
+With this data, we can see what the average blah is:
+
 ```{r}
-avgage = mean(df$winnerage)
-head(avgage)
+mean(df$winnerage)
 ```
+
+
 ## Plots
+
+We could also visualize blah: 
 
 ```{r}
 ggplot(df, aes(maoist, winnerage, colour = winnergender)) + 
