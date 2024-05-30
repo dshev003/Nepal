@@ -83,7 +83,11 @@ ggplot(df, aes(maovote, winnerage, colour = winnergender)) +
   geom_smooth(method=lm, se=FALSE)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- --> This plot
+regresses turnout with the average age of the winning candidate
+separated by gender. We can see that there is a much stronger positive
+relationship between turnout and winner age in constituencies with
+female winning candidates as a pose to male candidates.
 
 ``` r
 ggplot(df, aes(turnout, winnerage, colour = winnergender)) + 
@@ -91,9 +95,11 @@ ggplot(df, aes(turnout, winnerage, colour = winnergender)) +
   geom_smooth(method=lm, se=FALSE)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- --> This plot
-regresses Maoist performance with the average age of the candidates
-contesting single-member constituencies disaggregated by gender.
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+This plot regresses Maoist performance with the average age of the
+candidates contesting single-member constituencies disaggregated by
+gender.
 
 ``` r
 ggplot(df, aes(maovote, candidate_avgage, colour = winnergender)) + 
