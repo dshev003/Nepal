@@ -75,3 +75,24 @@ ggplot(df, aes(maovote, winnerage, colour = winnergender)) +
 ```
 
 
+
+```{r}
+ggplot(df, aes(turnout, winnerage, colour = winnergender)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE)
+```
+This plot regresses Maoist performance with the average age of the candidates contesting single-member constituencies disaggregated by gender.
+
+```{r}
+ggplot(df, aes(maovote, candidate_avgage, colour = winnergender)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE)
+```
+
+Now, moving onto regressions that involve conflict statistics.
+
+```{r}
+ggplot(df, aes(maodeath, maovote, colour = winnergender)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE)
+```

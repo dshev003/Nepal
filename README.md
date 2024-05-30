@@ -84,3 +84,31 @@ ggplot(df, aes(maovote, winnerage, colour = winnergender)) +
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+``` r
+ggplot(df, aes(turnout, winnerage, colour = winnergender)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- --> This plot
+regresses Maoist performance with the average age of the candidates
+contesting single-member constituencies disaggregated by gender.
+
+``` r
+ggplot(df, aes(maovote, candidate_avgage, colour = winnergender)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+Now, moving onto regressions that involve conflict statistics.
+
+``` r
+ggplot(df, aes(maodeath, maovote, colour = winnergender)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
