@@ -11,8 +11,7 @@
 Nepal is one of only a few countries in the world that successfully
 integrated a rebel group into its political system, a process that has
 yielded relatively peaceful results to the present day. From 1996 to
-2006, the Nepalese people experienced the tragedy and wholesale
-destruction of a [civil
+2006, the Nepalese people faced the tragedy of a [civil
 war](https://en.wikipedia.org/wiki/Nepalese_Civil_War) that destroyed
 lives, communities and families alike. For the personal stories of those
 affected, the [INSEC](https://www.insec.org.np/victim) database
