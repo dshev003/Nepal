@@ -72,6 +72,27 @@ mean(df$onesided)
 #> [1] 35.04487
 ```
 
+Key
+
+civdeath_gov -\> Civilian deaths perpetrated by Government Forces (Royal
+Nepalese Army, Nepal Police, Armed Police Force) per 100,000 eligible
+voters
+
+civdeath_mao -\> Civilian deaths perpetrated by the Communist Party of
+Nepal (Maoist) per 100,000 eligible voters
+
+govtdeath -\> Government deaths perpetrated by the Maoist rebels per
+100,000 eligible voters
+
+maodeath -\> Maoist deaths perpetrated by Government forces per 100,000
+eligible voters.
+
+statebased -\> State-based deaths (govtdeath + maodeath) per 100,000
+eligible voters.
+
+onesided -\> One-sided deaths (civdeath_gov + civdeath_mao) per 100,000
+eligible voters.
+
 ## Plots
 
 We can visualize how the age of winning candidates moves with gender and
