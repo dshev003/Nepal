@@ -127,9 +127,10 @@ all of the predictor variables was the inherently stronger support for
 the CPN(M) in the constituencies won by women.
 
 In this first chart, we can see that the few constituencies with female
-winning candidates generally had greater Maoist support, but that Maoist
-vote shares in these constituencies increased to a lesser degree than in
-constituencies with male winners.
+winning candidates generally had greater Maoist support, but that there
+is a more positive relationship between Maoist atrocities and Maoist
+electoral performance in electoral districts where the winning
+candidates were women.
 
 ``` r
 ggplot(df, aes(civdeath_mao, maovote, colour = winnergender)) + 
@@ -151,9 +152,9 @@ ggplot(df, aes(civdeath_gov, maovote, colour = winnergender)) +
 
 ![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-We can see that the Maoist vote share did markedly increase along with
-the death rate of government forces. In addition to the generally higher
-Maoist vote shares in constituencies won by women, it is once again
+We can see that the Maoist vote share increased markedly along with the
+death rate of government forces. In addition to the generally higher
+Maoist vote shares in constituencies won by women, it is again
 noticeable that the rebel vote share increased by more in these
 electoral districts relative to the male ones.
 
