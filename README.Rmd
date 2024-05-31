@@ -92,10 +92,50 @@ ggplot(df, aes(maovote, candidate_avgage, colour = winnergender)) +
   geom_smooth(method=lm, se=FALSE)
 ```
 
-Now, moving onto regressions that involve conflict statistics.
+Now, moving onto regressions that involve conflict statistics. My study's main hypothesis argued that there should be a negative association between the level of atrocities the Maoists committed and their electoral performance, and a positive association between the casualty rate inflicted on government forces and Maoist electoral performance. 
+
+
+## Gender in the Nepalese Civil War
+
+A topic I did not adequately touch on in my thesis was the the prominent role played by women cadre and fighters in the Maoist movement. Let's examine some trends of violence and Maoist electoral performance through the lens of the gender of the winning candidates. A general trend across all of the predictor variables was the inherently stronger support for the CPN(M) in the constituencies won by women. 
+
+In this first chart, we can see that the few constituencies with female winning candidates generally had greater Maoist support, but that Maoist vote shares in these constituencies increased to a lesser degree than in constituencies with male winners.
+
+```{r}
+ggplot(df, aes(civdeath_mao, maovote, colour = winnergender)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE)
+```
+
+By contrast, when studying the effect of civilian deaths caused by government forces on Maoist electoral performance, the differences by gender of the winning candidate are far more drastic.
+
+```{r}
+ggplot(df, aes(civdeath_gov, maovote, colour = winnergender)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE)
+```
+
+We can see that the Maoist vote share did markedly increase along with the death rate of government forces. In addition to the generally higher Maoist vote shares in constituencies won by women, it is once again noticeable that the rebel vote share increased by more in these electoral districts relative to the male ones. 
+
+
+```{r}
+ggplot(df, aes(govtdeath, maovote, colour = winnergender)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE)
+```
+
+Here is the relationship between rebel deaths and rebel vote share in the 2008 elections. In this case, the slope of the regression line for constituencies with male winners is steeper than the regression for the few constituencies where women were elected
 
 ```{r}
 ggplot(df, aes(maodeath, maovote, colour = winnergender)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE)
+```
+
+Finally, an examination of turnout and Maoist support. It is noted by election observers like the Carter Center, that the Maoists engaged in intimidation and harassment in the leadup to the polls, but that the election itself took place in reasonably tranquil conditions. Here, we can see that regardless of gender, the Maoists performed better in electoral districts where fewer eligible voters turned out. Once again, the general effect is even more pronounced in constituencies where women were victorious.
+
+```{r}
+ggplot(df, aes(turnout, maovote, colour = winnergender)) + 
   geom_point() + 
   geom_smooth(method=lm, se=FALSE)
 ```
