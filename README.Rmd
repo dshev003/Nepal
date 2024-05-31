@@ -57,7 +57,7 @@ mean(df$govtdeath)
 mean(df$maodeath)
 mean(df$statebased)
 mean(df$onesided)
-
+count(df, winnergender)
 
 
 
@@ -109,9 +109,15 @@ Now, moving onto regressions that involve conflict statistics. My study's main h
 
 ## Gender in the Nepalese Civil War
 
-A topic I did not adequately touch on in my thesis was the the prominent role played by women cadre and fighters in the Maoist movement. Let's examine some trends of violence and Maoist electoral performance through the lens of the gender of the winning candidates. A general trend across all of the predictor variables was the inherently stronger support for the CPN(M) in the constituencies won by women. 
+A topic I did not adequately touch on in my thesis was the the prominent role played by women cadre and fighters in the Maoist movement. Based on the data, one-eighth of the winning candidates in the electoral districts were women.  
 
-In this first chart, we can see that the few constituencies with female winning candidates generally had greater Maoist support, but that there is a more positive relationship between Maoist atrocities and Maoist electoral performance in electoral districts where the winning candidates were women.
+```{r}
+ggplot(df, aes(winnergender, fill=winnergender)) + 
+  geom_bar(width = 0.5) + theme_minimal() 
+
+```
+
+Let's examine some trends of violence and Maoist electoral performance through the lens of the gender of the winning candidates. An observation that holds across all of the predictor variables was the inherently stronger support for the CPN(M) in the constituencies won by women. In this first chart, we can see that the few constituencies with female winning candidates generally had greater Maoist support, but that there is a more positive relationship between Maoist atrocities and Maoist electoral performance in electoral districts where the winning candidates were women.
 
 ```{r}
 ggplot(df, aes(civdeath_mao, maovote, colour = winnergender)) + 

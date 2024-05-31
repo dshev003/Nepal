@@ -70,6 +70,10 @@ mean(df$statebased)
 #> [1] 10.50646
 mean(df$onesided)
 #> [1] 35.04487
+count(df, winnergender)
+#>   winnergender   n
+#> 1            F  30
+#> 2            M 210
 ```
 
 Key
@@ -141,13 +145,22 @@ performance.
 ## Gender in the Nepalese Civil War
 
 A topic I did not adequately touch on in my thesis was the the prominent
-role played by women cadre and fighters in the Maoist movement. Let’s
-examine some trends of violence and Maoist electoral performance through
-the lens of the gender of the winning candidates. A general trend across
-all of the predictor variables was the inherently stronger support for
-the CPN(M) in the constituencies won by women.
+role played by women cadre and fighters in the Maoist movement. Based on
+the data, one-eighth of the winning candidates in the electoral
+districts were women.
 
-In this first chart, we can see that the few constituencies with female
+``` r
+ggplot(df, aes(winnergender, fill=winnergender)) + 
+  geom_bar(width = 0.5) + theme_minimal() 
+```
+
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+Let’s examine some trends of violence and Maoist electoral performance
+through the lens of the gender of the winning candidates. An observation
+that holds across all of the predictor variables was the inherently
+stronger support for the CPN(M) in the constituencies won by women. In
+this first chart, we can see that the few constituencies with female
 winning candidates generally had greater Maoist support, but that there
 is a more positive relationship between Maoist atrocities and Maoist
 electoral performance in electoral districts where the winning
@@ -159,7 +172,7 @@ ggplot(df, aes(civdeath_mao, maovote, colour = winnergender)) +
   geom_smooth(method=lm, se=FALSE)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 By contrast, when studying the effect of civilian deaths caused by
 government forces on Maoist electoral performance, the differences by
@@ -171,7 +184,7 @@ ggplot(df, aes(civdeath_gov, maovote, colour = winnergender)) +
   geom_smooth(method=lm, se=FALSE)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 We can see that the Maoist vote share increased markedly along with the
 death rate of government forces. In addition to the generally higher
@@ -185,7 +198,7 @@ ggplot(df, aes(govtdeath, maovote, colour = winnergender)) +
   geom_smooth(method=lm, se=FALSE)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 Here is the relationship between rebel deaths and rebel vote share in
 the 2008 elections. In this case, the slope of the regression line for
@@ -198,7 +211,7 @@ ggplot(df, aes(maodeath, maovote, colour = winnergender)) +
   geom_smooth(method=lm, se=FALSE)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 Finally, an examination of turnout and Maoist support. It is noted by
 election observers like the Carter Center, that the Maoists engaged in
@@ -215,4 +228,4 @@ ggplot(df, aes(turnout, maovote, colour = winnergender)) +
   geom_smooth(method=lm, se=FALSE)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
