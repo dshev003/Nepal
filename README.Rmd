@@ -58,6 +58,9 @@ mean(df$maodeath)
 mean(df$statebased)
 mean(df$onesided)
 count(df, winnergender)
+col <- count(df, winningparty)
+
+col[order(col$n, decreasing = TRUE),]
 
 
 
@@ -157,3 +160,13 @@ ggplot(df, aes(turnout, maovote, colour = winnergender)) +
   geom_point() + 
   geom_smooth(method=lm, se=FALSE)
 ```
+
+## Political Parties in the Constituencies (2008 Constituent Assembly Election)
+
+```{r}
+ggplot(df, aes(x = winningparty, fill=winningparty)) + 
+  geom_bar(width = 0.5) + theme_minimal() +
+  scale_fill_manual(values = c("darkred", "grey", "orange", "orangered", "darkgreen" , "#ff8080" , "seagreen" , "firebrick" , "lightgrey" , "red"))+ 
+  theme(axis.text=element_text(size=10)) 
+```
+
