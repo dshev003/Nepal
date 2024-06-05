@@ -12,10 +12,10 @@ library(lmtest)
 library(ggplot2)
 
 
-nepaldata <- read.csv("nepalconflict4.csv")
+nepaldata <- read.csv("completedata.csv")
 
 # linear regression model
-model = lm(maovote ~ maodeath + govtdeath + turnout + oneside, data = nepaldata)
+model = lm(maovote ~ maodeath + govtdeath + turnout + onesided, data = nepaldata)
 model2 = lm(maovote ~ civdeath_mao + civdeath_gov + turnout + statebased, data = nepaldata)
 
 summary(model)
@@ -29,7 +29,7 @@ bptest(model2)
 weight <- 1 / lm(abs(model$residuals) ~ model$fitted.values)$fitted.values^2
 weight2 <- 1 / lm(abs(model2$residuals) ~ model2$fitted.values)$fitted.values^2
 
-weightedmodel <- lm(maovote ~ maodeath + govtdeath + turnout + oneside, data = nepaldata, weights=weight)
+weightedmodel <- lm(maovote ~ maodeath + govtdeath + turnout + onesided, data = nepaldata, weights=weight)
 weightedmodel2 <- lm(maovote ~ civdeath_mao + civdeath_gov + turnout + statebased, data = nepaldata, weights=weight2)
 
 summary(weightedmodel)

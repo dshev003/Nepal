@@ -33,6 +33,7 @@ unsuccessful candidates who contested the single-member constituencies.
 ``` r
 library(tidyverse)
 library(kableExtra)
+library(psych)
 
 df = read.csv("completedata.csv")
 kable(head(df))
@@ -49,45 +50,18 @@ kable(head(df))
 
 ## Descriptive statistics
 
-With this data, we can examine the mean age of candidates and winning
-candidates in each electoral district along with concurrent violence
-statistics.
+With this data, we can examine the mean age of winning candidates in
+each electoral district along with the mean level of civilian killed by
+Maoists per 100,000 eligible voters and the mean level of Maoist rebels
+killed by government forces per 100,000 eligible voters.
 
 ``` r
-mean(df$winnerage)
-#> [1] 43.725
-mean(df$candidate_avgage)
-#> [1] 44.46258
-mean(df$civdeath_gov)
-#> [1] 4.54925
-mean(df$civdeath_mao)
-#> [1] 5.957208
-mean(df$govtdeath)
-#> [1] 10.75725
-mean(df$maodeath)
-#> [1] 24.28762
-mean(df$statebased)
-#> [1] 10.50646
-mean(df$onesided)
-#> [1] 35.04487
-count(df, winnergender)
-#>   winnergender   n
-#> 1            F  30
-#> 2            M 210
-col <- count(df, winningparty)
 
-col[order(col$n, decreasing = TRUE),]
-#>    winningparty   n
-#> 1          CPNM 120
-#> 5            NC  37
-#> 10          UML  33
-#> 4          MJFN  30
-#> 9          TMLP   9
-#> 7           NSP   4
-#> 2           IND   2
-#> 3            JN   2
-#> 6          NMKP   2
-#> 8            RJ   1
+df %>% summarise(civdeath_mao = mean(df$civdeath_mao), maodeath = mean(df$maodeath), winnerage = mean(df$winnerage))%>% tibble()
+#> # A tibble: 1 × 3
+#>   civdeath_mao maodeath winnerage
+#>          <dbl>    <dbl>     <dbl>
+#> 1         5.96     24.3      43.7
 ```
 
 Key
@@ -113,48 +87,45 @@ eligible voters.
 
 ## Plots
 
-We can visualize how the age of winning candidates moves with gender and
-the Maoist vote share in each electoral district.
+We can visualize how the Maoist vote share moves with gender and the age
+of the winning candidate in each electoral district.
 
 ``` r
-ggplot(df, aes(maovote, winnerage, colour = winnergender)) + 
+ggplot(df, aes(winnerage, maovote, colour = winnergender)) + 
   geom_point() + 
   geom_smooth(method=lm, se=FALSE)
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-This plot regresses turnout with the average age of the winning
-candidate separated by gender. We can see that there is a much stronger
-positive relationship between turnout and winner age in constituencies
-with female winning candidates as a pose to male candidates.
+This plot visualizes the relationship between the average age of the
+winning candidate and voter turnout separated by gender. We can see that
+there is a much stronger positive relationship between winner age and
+turnout in constituencies with female winning candidates as a pose to
+electoral districts with male winners.
 
 ``` r
-ggplot(df, aes(turnout, winnerage, colour = winnergender)) + 
+ggplot(df, aes(winnerage, turnout, colour = winnergender)) + 
   geom_point() + 
   geom_smooth(method=lm, se=FALSE)
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
-This plot regresses Maoist performance with the average age of the
-candidates contesting single-member constituencies disaggregated by
-gender.
+This plot depicts the association between the average age of the
+candidates contesting the single-member constituencies in the 2008
+elections and the Maoist vote share. On average, as the average age of
+the candidates increased,the Maoist vote share in the electoral
+districts increased at a roughly similar rate in constituencies won by
+men and women.
 
 ``` r
-ggplot(df, aes(maovote, candidate_avgage, colour = winnergender)) + 
+ggplot(df, aes(candidate_avgage, maovote, colour = winnergender)) + 
   geom_point() + 
   geom_smooth(method=lm, se=FALSE)
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
-
-Now, moving onto regressions that involve conflict statistics. My
-study’s main hypothesis argued that there should be a negative
-association between the level of atrocities the Maoists committed and
-their electoral performance, and a positive association between the
-casualty rate inflicted on government forces and Maoist electoral
-performance.
 
 ## Gender in the Nepalese Civil War
 
@@ -170,27 +141,19 @@ ggplot(df, aes(winnergender, fill=winnergender)) +
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
-Let’s examine some trends of violence and Maoist electoral performance
-through the lens of the gender of the winning candidates. An observation
-that holds across all of the predictor variables was the inherently
-stronger support for the CPN(M) in the constituencies won by women. In
-this first chart, we can see that the few constituencies with female
-winning candidates generally had greater Maoist support, but that there
-is a more positive relationship between Maoist atrocities and Maoist
-electoral performance in electoral districts where the winning
-candidates were women.
-
-``` r
-ggplot(df, aes(civdeath_mao, maovote, colour = winnergender)) + 
-  geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
-```
-
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
-
-By contrast, when studying the effect of civilian deaths caused by
-government forces on Maoist electoral performance, the differences by
-gender of the winning candidate are far more drastic.
+Let’s examine some trends related to violence and Maoist electoral
+performance through the lens of the gender of the winning candidates. An
+observation that holds across all of the predictor variables was the
+inherently stronger support for the CPN(M) in the constituencies won by
+women. When observing the effect of civilian atrocities perpetrated by
+government forces on support for the Maoists in the 2008 elections,
+something distinct stands out. On average, it appears that the electoral
+districts with female winning candidates had less violence to begin
+with, but voted for the Maoist candidate in greater numbers. However, in
+spite of the small sample size, we can observe that there exists a much
+more positive association between government violence and Maoist
+electoral success in constituencies won by women compared to those won
+by men.
 
 ``` r
 ggplot(df, aes(civdeath_gov, maovote, colour = winnergender)) + 
@@ -198,43 +161,17 @@ ggplot(df, aes(civdeath_gov, maovote, colour = winnergender)) +
   geom_smooth(method=lm, se=FALSE)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
-
-We can see that the Maoist vote share increased markedly along with the
-death rate of government forces. In addition to the generally higher
-Maoist vote shares in constituencies won by women, it is again
-noticeable that the rebel vote share increased by more in these
-electoral districts relative to the male ones.
-
-``` r
-ggplot(df, aes(govtdeath, maovote, colour = winnergender)) + 
-  geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
-```
-
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
-
-Here is the relationship between rebel deaths and rebel vote share in
-the 2008 elections. In this case, the slope of the regression line for
-constituencies with male winners is steeper than the regression for the
-few constituencies where women were elected
-
-``` r
-ggplot(df, aes(maodeath, maovote, colour = winnergender)) + 
-  geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
-```
-
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
-
-Finally, an examination of turnout and Maoist support. It is noted by
-election observers like the Carter Center, that the Maoists engaged in
-intimidation and harassment in the leadup to the polls, but that the
-election itself took place in reasonably tranquil conditions. Here, we
-can see that regardless of gender, the Maoists performed better in
-electoral districts where fewer eligible voters turned out. Once again,
-the general effect is even more pronounced in constituencies where women
-were victorious.
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- --> It is also
+prudent to examine the relationship between turnout and Maoist support.
+Election observers like the Carter Center noted that the Maoists engaged
+in the intimidation and harassment of their opponents in the days
+leading up to the polls, but that the election itself took place in
+reasonably tranquil conditions. Here, we can see that regardless of
+gender, the Maoists performed better in electoral districts where fewer
+eligible voters turned out. There appears to be a stronger negative
+relationship between turnout and Maoist electoral performance for
+constituencies where women were victorious versus those won by male
+candidates.
 
 ``` r
 ggplot(df, aes(turnout, maovote, colour = winnergender)) + 
@@ -242,7 +179,7 @@ ggplot(df, aes(turnout, maovote, colour = winnergender)) +
   geom_smooth(method=lm, se=FALSE)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ## Political Parties in the Constituencies (2008 Constituent Assembly Election)
 
@@ -253,4 +190,4 @@ ggplot(df, aes(x = winningparty, fill=winningparty)) +
   theme(axis.text=element_text(size=10)) 
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
