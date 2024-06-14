@@ -193,32 +193,31 @@ ggplot(df, aes(x = winningparty, fill=winningparty)) +
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
+Let’s calculate the effective number of parties per electoral district.
 
-    Let's calculate the effective number of parties per electoral district. 
+``` r
 
+df2 <- read.csv("partylistresults.csv")
 
-    ```r
+# Extract the relevant columns containing the p values
+p_values <- df2[, -(1:4)]  # Assuming the first column contains row identifiers, adjust if needed
 
-    df2 <- read.csv("partylistresults.csv")
+# Function to calculate N for each row
+calculate_N <- function(row) {
+  sum_squares <- sum(row^2)
+  N <- 1 / sum_squares
+  return(N)
+}
 
-    # Extract the relevant columns containing the p values
-    p_values <- df2[, -(1:4)]  # Assuming the first column contains row identifiers, adjust if needed
+# Calculate N for each row
+N_values <- apply(p_values, 1, calculate_N)
 
-    # Function to calculate N for each row
-    calculate_N <- function(row) {
-      sum_squares <- sum(row^2)
-      N <- 1 / sum_squares
-      return(N)
-    }
+# Add N values to the original data frame
+df2 <- cbind(df2[, 4], N = N_values)
 
-    # Calculate N for each row
-    N_values <- apply(p_values, 1, calculate_N)
-
-    # Add N values to the original data frame
-    df2 <- cbind(df2[, 4], N = N_values)
-
-    # Print or export the resulting data frame with N values
-    kable(head(df2))
+# Print or export the resulting data frame with N values
+kable(head(df2))
+```
 
 |                | N                |
 |:---------------|:-----------------|
@@ -245,5 +244,3 @@ ggplot(df3, aes(df4$turnout, N, colour = df4$winnergender)) +
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
-
-\`\`\`

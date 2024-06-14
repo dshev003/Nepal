@@ -131,7 +131,7 @@ ggplot(df, aes(x = winningparty, fill=winningparty)) +
   scale_fill_manual(values = c("darkred", "grey", "orange", "orangered", "darkgreen" , "#ff8080" , "seagreen" , "firebrick" , "lightgrey" , "red"))+ 
   theme(axis.text=element_text(size=10)) + labs(x = "Winning Party", y = "Number of Seats", fill = "Party")
 ```
-```
+
 
 Let's calculate the effective number of parties per electoral district. 
 
@@ -172,6 +172,4 @@ ggplot(df3, aes(df4$turnout, N, colour = df4$winnergender)) +
   geom_point() + 
   geom_smooth(method=lm, se=FALSE) +
   theme(axis.text = element_text(size = 6)) + labs(title = "Effective Number of Parties and Turnout" , x = "Turnout" , y = "Effective Number of Parties", color = "Gender")
-```
-
 ```
