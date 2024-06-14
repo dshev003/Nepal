@@ -135,31 +135,37 @@ ggplot(df, aes(x = winningparty, fill=winningparty)) +
 
 Let's calculate the effective number of parties per electoral district. 
 
+
 ```{r}
+
+library(knitr)
+library(dplyr)
 
 df2 <- read.csv("partylistresults.csv")
 
-# Extract the relevant columns containing the p values
-p_values <- df2[, -(1:4)]  # Assuming the first column contains row identifiers, adjust if needed
+df2 <- as.data.frame(df2)
 
-# Function to calculate N for each row
+p <- df2[, -(1:4)]
+
 calculate_N <- function(row) {
   sum_squares <- sum(row^2)
   N <- 1 / sum_squares
   return(N)
 }
 
-# Calculate N for each row
-N_values <- apply(p_values, 1, calculate_N)
+N_values <- apply(p, 1, calculate_N)
 
-# Add N values to the original data frame
-df2 <- cbind(df2[, 4], N = N_values)
+df2 <- cbind(df2[, 4, drop = FALSE], N = round(N_values, 2))
 
-# Print or export the resulting data frame with N values
+df2 <- df2 %>%
+  mutate(across(where(is.numeric), ~ round(., 2)))
+
 kable(head(df2))
 
 
 ```
+
+
 
 Here is a chart that regresses turnout in the constituent assembly election and the effective number of parties per electoral district, disaggregated by gender.
 
