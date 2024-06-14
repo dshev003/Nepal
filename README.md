@@ -92,8 +92,8 @@ of the winning candidate in each electoral district.
 
 ``` r
 ggplot(df, aes(winnerage, maovote, colour = winnergender)) + 
-  geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
+  geom_point() +  
+  geom_smooth(method=lm, se=FALSE) + labs(x = "Age of Winning Candidate", y = "Maoist Vote", color = "Gender")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
@@ -107,7 +107,7 @@ electoral districts with male winners.
 ``` r
 ggplot(df, aes(winnerage, turnout, colour = winnergender)) + 
   geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
+  geom_smooth(method=lm, se=FALSE) + labs(x = "Age of Winning Candidate", y = "Turnout", color = "Gender")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
@@ -122,7 +122,7 @@ men and women.
 ``` r
 ggplot(df, aes(candidate_avgage, maovote, colour = winnergender)) + 
   geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
+  geom_smooth(method=lm, se=FALSE) + labs(x = "Average Age of Candidate", y = "Maoist Vote", color = "Gender")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
@@ -136,7 +136,7 @@ districts were women.
 
 ``` r
 ggplot(df, aes(winnergender, fill=winnergender)) + 
-  geom_bar(width = 0.5) + theme_minimal() 
+  geom_bar(width = 0.5) + theme_minimal() + labs(x = "Gender of Winning Candidates", y = "Number of Winning Candidates", fill = "Gender")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
@@ -158,25 +158,26 @@ by men.
 ``` r
 ggplot(df, aes(civdeath_gov, maovote, colour = winnergender)) + 
   geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
+  geom_smooth(method=lm, se=FALSE) + labs(x = "Civilian Deaths Perpetrated by Government Forces", y = "Maoist Vote", color = "Gender")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- --> It is also
-prudent to examine the relationship between turnout and Maoist support.
-Election observers like the Carter Center noted that the Maoists engaged
-in the intimidation and harassment of their opponents in the days
-leading up to the polls, but that the election itself took place in
-reasonably tranquil conditions. Here, we can see that regardless of
-gender, the Maoists performed better in electoral districts where fewer
-eligible voters turned out. There appears to be a stronger negative
-relationship between turnout and Maoist electoral performance for
-constituencies where women were victorious versus those won by male
-candidates.
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+It is also prudent to observe the relationship between turnout and
+Maoist support. Election observers like the Carter Center noted that the
+Maoists engaged in the intimidation and harassment of their opponents in
+the days leading up to the polls, but that the election itself took
+place in reasonably tranquil conditions. Here, we can see that
+regardless of gender, the Maoists performed better in electoral
+districts where fewer eligible voters turned out. There appears to be a
+stronger negative relationship between turnout and Maoist electoral
+performance for constituencies where women were victorious versus those
+won by male candidates.
 
 ``` r
 ggplot(df, aes(turnout, maovote, colour = winnergender)) + 
   geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
+  geom_smooth(method=lm, se=FALSE) + labs(x = "Turnout", y = "Maoist Vote", color = "Gender")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
@@ -187,36 +188,37 @@ ggplot(df, aes(turnout, maovote, colour = winnergender)) +
 ggplot(df, aes(x = winningparty, fill=winningparty)) + 
   geom_bar(width = 0.5) + theme_minimal() +
   scale_fill_manual(values = c("darkred", "grey", "orange", "orangered", "darkgreen" , "#ff8080" , "seagreen" , "firebrick" , "lightgrey" , "red"))+ 
-  theme(axis.text=element_text(size=10)) 
+  theme(axis.text=element_text(size=10)) + labs(x = "Winning Party", y = "Number of Seats", fill = "Party")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
-Let’s calculate the effective number of parties per electoral district.
 
-``` r
+    Let's calculate the effective number of parties per electoral district. 
 
-df2 <- read.csv("partylistresults.csv")
 
-# Extract the relevant columns containing the p values
-p_values <- df2[, -(1:4)]  # Assuming the first column contains row identifiers, adjust if needed
+    ```r
 
-# Function to calculate N for each row
-calculate_N <- function(row) {
-  sum_squares <- sum(row^2)
-  N <- 1 / sum_squares
-  return(N)
-}
+    df2 <- read.csv("partylistresults.csv")
 
-# Calculate N for each row
-N_values <- apply(p_values, 1, calculate_N)
+    # Extract the relevant columns containing the p values
+    p_values <- df2[, -(1:4)]  # Assuming the first column contains row identifiers, adjust if needed
 
-# Add N values to the original data frame
-df2 <- cbind(df2[, 4], N = N_values)
+    # Function to calculate N for each row
+    calculate_N <- function(row) {
+      sum_squares <- sum(row^2)
+      N <- 1 / sum_squares
+      return(N)
+    }
 
-# Print or export the resulting data frame with N values
-kable(head(df2))
-```
+    # Calculate N for each row
+    N_values <- apply(p_values, 1, calculate_N)
+
+    # Add N values to the original data frame
+    df2 <- cbind(df2[, 4], N = N_values)
+
+    # Print or export the resulting data frame with N values
+    kable(head(df2))
 
 |                | N                |
 |:---------------|:-----------------|
@@ -239,7 +241,7 @@ df4 <- read.csv("completedata.csv")
 ggplot(df3, aes(df4$turnout, N, colour = df4$winnergender)) + 
   geom_point() + 
   geom_smooth(method=lm, se=FALSE) +
-  theme(axis.text = element_text(size = 6)) + labs(title = "Effective Number of Parties and Turnout" , x = "Turnout" , y = "Effective Number of Parties")
+  theme(axis.text = element_text(size = 6)) + labs(title = "Effective Number of Parties and Turnout" , x = "Turnout" , y = "Effective Number of Parties", color = "Gender")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->

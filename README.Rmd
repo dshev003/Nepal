@@ -75,8 +75,8 @@ We can visualize how the Maoist vote share moves with gender and the age of the 
 
 ```{r}
 ggplot(df, aes(winnerage, maovote, colour = winnergender)) + 
-  geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
+  geom_point() +  
+  geom_smooth(method=lm, se=FALSE) + labs(x = "Age of Winning Candidate", y = "Maoist Vote", color = "Gender")
 ```
 
 This plot visualizes the relationship between the average age of the winning candidate and voter turnout separated by gender. We can see that there is a much stronger positive relationship between winner age and turnout in constituencies with female winning candidates as a pose to electoral districts with male winners.
@@ -84,7 +84,7 @@ This plot visualizes the relationship between the average age of the winning can
 ```{r}
 ggplot(df, aes(winnerage, turnout, colour = winnergender)) + 
   geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
+  geom_smooth(method=lm, se=FALSE) + labs(x = "Age of Winning Candidate", y = "Turnout", color = "Gender")
 ```
 
 This plot depicts the association between the average age of the candidates contesting the single-member constituencies in the 2008 elections and the Maoist vote share. On average, as the average age of the candidates increased,the Maoist vote share in the electoral districts increased at a roughly similar rate in constituencies won by men and women.
@@ -92,7 +92,7 @@ This plot depicts the association between the average age of the candidates cont
 ```{r}
 ggplot(df, aes(candidate_avgage, maovote, colour = winnergender)) + 
   geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
+  geom_smooth(method=lm, se=FALSE) + labs(x = "Average Age of Candidate", y = "Maoist Vote", color = "Gender")
 ```
 
 
@@ -102,7 +102,7 @@ A topic I did not adequately touch on in my thesis was the the prominent role pl
 
 ```{r}
 ggplot(df, aes(winnergender, fill=winnergender)) + 
-  geom_bar(width = 0.5) + theme_minimal() 
+  geom_bar(width = 0.5) + theme_minimal() + labs(x = "Gender of Winning Candidates", y = "Number of Winning Candidates", fill = "Gender")
 
 ```
 
@@ -112,14 +112,15 @@ Let's examine some trends related to violence and Maoist electoral performance t
 ```{r}
 ggplot(df, aes(civdeath_gov, maovote, colour = winnergender)) + 
   geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
+  geom_smooth(method=lm, se=FALSE) + labs(x = "Civilian Deaths Perpetrated by Government Forces", y = "Maoist Vote", color = "Gender")
 ```
-It is also prudent to examine the relationship between turnout and Maoist support. Election observers like the Carter Center noted that the Maoists engaged in the intimidation and harassment of their opponents in the days leading up to the polls, but that the election itself took place in reasonably tranquil conditions. Here, we can see that regardless of gender, the Maoists performed better in electoral districts where fewer eligible voters turned out. There appears to be a stronger negative relationship between turnout and Maoist electoral performance for constituencies where women were victorious versus those won by male candidates.
+
+It is also prudent to observe the relationship between turnout and Maoist support. Election observers like the Carter Center noted that the Maoists engaged in the intimidation and harassment of their opponents in the days leading up to the polls, but that the election itself took place in reasonably tranquil conditions. Here, we can see that regardless of gender, the Maoists performed better in electoral districts where fewer eligible voters turned out. There appears to be a stronger negative relationship between turnout and Maoist electoral performance for constituencies where women were victorious versus those won by male candidates.
 
 ```{r}
 ggplot(df, aes(turnout, maovote, colour = winnergender)) + 
   geom_point() + 
-  geom_smooth(method=lm, se=FALSE)
+  geom_smooth(method=lm, se=FALSE) + labs(x = "Turnout", y = "Maoist Vote", color = "Gender")
 ```
 
 ## Political Parties in the 2008 Constituent Assembly Election
@@ -128,7 +129,8 @@ ggplot(df, aes(turnout, maovote, colour = winnergender)) +
 ggplot(df, aes(x = winningparty, fill=winningparty)) + 
   geom_bar(width = 0.5) + theme_minimal() +
   scale_fill_manual(values = c("darkred", "grey", "orange", "orangered", "darkgreen" , "#ff8080" , "seagreen" , "firebrick" , "lightgrey" , "red"))+ 
-  theme(axis.text=element_text(size=10)) 
+  theme(axis.text=element_text(size=10)) + labs(x = "Winning Party", y = "Number of Seats", fill = "Party")
+```
 ```
 
 Let's calculate the effective number of parties per electoral district. 
@@ -169,7 +171,7 @@ df4 <- read.csv("completedata.csv")
 ggplot(df3, aes(df4$turnout, N, colour = df4$winnergender)) + 
   geom_point() + 
   geom_smooth(method=lm, se=FALSE) +
-  theme(axis.text = element_text(size = 6)) + labs(title = "Effective Number of Parties and Turnout" , x = "Turnout" , y = "Effective Number of Parties")
+  theme(axis.text = element_text(size = 6)) + labs(title = "Effective Number of Parties and Turnout" , x = "Turnout" , y = "Effective Number of Parties", color = "Gender")
 ```
 
 ```
