@@ -181,7 +181,7 @@ ggplot(df, aes(turnout, maovote, colour = winnergender)) +
 
 ![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
-## Political Parties in the Constituencies (2008 Constituent Assembly Election)
+## Political Parties in the 2008 Constituent Assembly Election
 
 ``` r
 ggplot(df, aes(x = winningparty, fill=winningparty)) + 
@@ -191,3 +191,57 @@ ggplot(df, aes(x = winningparty, fill=winningparty)) +
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+Let’s calculate the effective number of parties per electoral district.
+
+``` r
+
+df2 <- read.csv("partylistresults.csv")
+
+# Extract the relevant columns containing the p values
+p_values <- df2[, -(1:4)]  # Assuming the first column contains row identifiers, adjust if needed
+
+# Function to calculate N for each row
+calculate_N <- function(row) {
+  sum_squares <- sum(row^2)
+  N <- 1 / sum_squares
+  return(N)
+}
+
+# Calculate N for each row
+N_values <- apply(p_values, 1, calculate_N)
+
+# Add N values to the original data frame
+df2 <- cbind(df2[, 4], N = N_values)
+
+# Print or export the resulting data frame with N values
+kable(head(df2))
+```
+
+|                | N                |
+|:---------------|:-----------------|
+| Achham 1       | 3.29844088636495 |
+| Achham 2       | 4.37112742697562 |
+| Arghakhanchi 1 | 4.24272583594745 |
+| Arghakhanchi 2 | 3.73611058857453 |
+| Baglung 1      | 4.21100078476211 |
+| Baglung 2      | 4.77776238276566 |
+
+Here is a chart that regresses turnout in the constituent assembly
+election and the effective number of parties per electoral district,
+disaggregated by gender.
+
+``` r
+df3 <- read.csv("partylistresults.csv")
+df3$N <- N_values
+df4 <- read.csv("completedata.csv")
+
+ggplot(df3, aes(df4$turnout, N, colour = df4$winnergender)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=FALSE) +
+  theme(axis.text = element_text(size = 6)) + labs(title = "Effective Number of Parties and Turnout" , x = "Turnout" , y = "Effective Number of Parties")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+\`\`\`
