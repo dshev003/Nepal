@@ -193,7 +193,9 @@ ggplot(df, aes(x = winningparty, fill=winningparty)) +
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
-Let’s calculate the effective number of parties per electoral district.
+Let’s calculate the “effective number of parties” per electoral
+district. This will adjust the actual number of political parties that
+won party list votes by their relative strength.
 
 ``` r
 
